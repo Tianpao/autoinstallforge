@@ -1,11 +1,12 @@
 import { LOGGER } from "./LOGGER.js";
 import inquirer from "inquirer";
 import got from 'got';
-import fs from 'fs';
+import fs, { cpSync } from 'fs';
 import fse from 'fs-extra';
 import AdmZip from "adm-zip";
 import pMap from "p-map";
 import pRetry from "p-retry";
+import cp from "child_process";
 
 // const prompt = inquirer.createPromptModule();
 // await prompt([
@@ -66,6 +67,10 @@ for(let c=0;c<fvdata.length;c++){
     await fastdownload(`https://bmclapi2.bangbang93.com/maven${new URL(g.url).pathname}`,`${forgepath}/libraries/${g.path}`,16)
     }
     LOGGER.info(`下载Minecraft的Maven完成！`)
+    await fastdownload(`https://bmclapi2.bangbang93.com/version/${minecraftversion}/server`,`${forgepath}/libraries/net/minecraft/server/${minecraftversion}/server-${minecraftversion}.jar`,1)
+    cp.execSync(`java -jar Forge-${minecraftversion}-${loaderversion}.jar --installServer`,{cwd:forgepath}) //执行Forge安装命令
+    cp.execSync(`mshta "javascript:var sh=new ActiveXObject("WScript.Shell"); sh.Popup("MinecraftForge安装完成！", 30, "AutoInstalForge", 64 );close()"`)
+    LOGGER.info("Forge安装完成！！！")
   }
 }
 
@@ -87,9 +92,7 @@ async function fastdownload(url,path,concurrency){
           },
         );
       }catch(error){
-          if(error.message !== "Response code 404 (Not Found)"){
               LOGGER.error({err:error})
-          }
       }
   },
       {
