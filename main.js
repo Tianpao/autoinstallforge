@@ -1,4 +1,4 @@
-import { LOGGER } from "./LOGGER.js";
+import { pino } from "pino"
 import inquirer from "inquirer";
 import got from 'got';
 import fs, { cpSync } from 'fs';
@@ -98,3 +98,16 @@ async function fastdownload(url,path,concurrency){
         },
   )
 }
+
+const LOGGER = pino({
+    level: process.env.LOGLEVEL || 'info',
+    transport: process.env.PLAIN_LOG
+        ? undefined
+        : {
+            target: 'pino-pretty',
+            options: {
+                translateTime: 'SYS:standard',
+                singleLine: true,
+            },
+        },
+})
