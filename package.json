@@ -1,0 +1,32 @@
+{
+  "name": "aif",
+  "version": "1.0.0",
+  "description": "auto install forge server",
+  "homepage": "https://github.com/Tianpao/autoinstallforge#readme",
+  "bugs": {
+    "url": "https://github.com/Tianpao/autoinstallforge/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tianpao/autoinstallforge.git"
+  },
+  "license": "MIT",
+  "author": "Tianpao",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js"
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "cli-progress": "^3.12.0",
+    "fs-extra": "^11.3.0",
+    "got": "^14.4.6",
+    "inquirer": "^12.5.0",
+    "p-map": "^7.0.3",
+    "p-retry": "^6.2.1",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.0.0",
+    "yaml": "^2.7.1"
+  }
+}
