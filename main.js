@@ -8,33 +8,31 @@ import pMap from "p-map";
 import pRetry from "p-retry";
 import cp from "child_process";
 
-// const prompt = inquirer.createPromptModule();
-// await prompt([
-//     {
-//         type: "list",
-//         name: "type",
-//         message: "请选择你需要安装服务端的Loader",
-//         choices: ["MinecraftForge", "NeoForge"],
-//         pageSize: 4,
-//         loop: false,
-//       },
-//       {
-//         type: "input",
-//         name: "mcv",
-//         message: "请输入Minecraft版本",
-//         loop: false,
-//       },
-//       {
-//         type: "input",
-//         name: "ldv",
-//         message: "请输入模组加载器版本",
-//         loop: false,
-//       }
-// ]).then(async (answers)=>{
-// await Install(answers.type,answers.mcv,answers.ldv)
-// })
-
-await Install("MinecraftForge","1.20.1","47.3.10")
+const prompt = inquirer.createPromptModule();
+await prompt([
+    {
+        type: "list",
+        name: "type",
+        message: "请选择你需要安装服务端的Loader",
+        choices: ["MinecraftForge", "NeoForge"],
+        pageSize: 4,
+        loop: false,
+      },
+      {
+        type: "input",
+        name: "mcv",
+        message: "请输入Minecraft版本",
+        loop: false,
+      },
+      {
+        type: "input",
+        name: "ldv",
+        message: "请输入模组加载器版本",
+        loop: false,
+      }
+]).then(async (answers)=>{
+await Install(answers.type,answers.mcv,answers.ldv)
+})
 
 async function Install(type,minecraftversion,loaderversion) { //instance
   const forgepath = `./instance/[${type}]${minecraftversion}-${loaderversion}`
